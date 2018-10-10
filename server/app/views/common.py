@@ -82,38 +82,84 @@ def return_recommendations():
                                 "discussion":x[3],
                                 "rationale":x[4],
                                 "Title":x[5],
-                                "topic":x[6]
+                                "topic":x[6],
+				"general_id":str(x[7])
                             }
+		    if general_dict["clinical"] is None:
+                        general_dict["clinical"]="None"
+                    if general_dict["clinicalurl"] is None:
+                        general_dict["clinicalurl"]="None"
+                    if general_dict["Other"] is None:
+                        general_dict["Other"]="None"
+                    if general_dict["discussion"] is None:
+                        general_dict["discussion"]="None"
+                    if general_dict["rationale"] is None:
+                        general_dict["rationale"]="None"
+                    if general_dict["Title"] is None:
+                        general_dict["Title"]="None"
+                    if general_dict["topic"] is None:
+                        general_dict['topic']="None"
                     ret_tools_data=functoin_retrieve_data_againsst_tools_id(ret_data[i][7], ret_data[i][8], ret_data[i][9])
                     print(ret_tools_data)
                     if ret_tools_data is not None:
                         print(ret_tools_data)
                         j=0
                         try:
+			    tools_list=[]
+			    ids=[]
+			    urls=[]
+			    titles=[]
                             for j in range(len(ret_tools_data)):
-                                tools_dict={
-                                "Title":ret_tools_data[j][0],
-                                "url":ret_tools_data[j][1]
+				ids.append(str(ret_tools_data[j][0]))
+				urls.append(ret_tools_data[j][2])
+				titles.append(ret_tools_data[j][1])
+				j+=1
+                            tools_dict={
+				"tool_ids":ids,
+                                "Titles":titles,
+                                "urls":urls
 
                                 }
-                                j+=1
+				#tools_list.append(tools_dict)
+                                #j+=1
                         except:
-                            tools_dict={}
+                            tools_list=[]
+                            tools_dict={
+                                "tool_ids":ret_tools_data[0][0],
+                                "Titles":ret_tools_data[0][1],
+                                "urls":ret_tools_data[0][2]
+
+                            }
+                            #tools_list.append(tools_dict)
                             pass
 
                     product_dict = {
                         "Title": ret_data[i][0],
                         "Grade": ret_data[i][1],
                         "Recomendation": ret_data[i][2],
-                        "Frequency of Service": ret_data[i][3],
-                        "Risk Factor Information": ret_data[i][4],
+                        "Frequency_of_Service": ret_data[i][3],
+                        "Risk_Factor_Information": ret_data[i][4],
                         "Rationale": ret_data[i][5],
                         "General":general_dict,
-                        "tools":tools_dict
-                        
-                        
+                        "tools":tools_dict,
+			"id":ret_data[i][10],
+			"agerange0":ret_data[i][11],
+			"agerange1":ret_data[i][12],
+			"risk_name":ret_data[i][13],
+			"gender":ret_data[i][14],
+			"grade_version":ret_data[i][15]
                         }
                     i+=1
+		    if product_dict["Rationale"] is None:
+			product_dict["Rationale"]="None"
+		    if product_dict["Title"] is None:
+                	product_dict["Title"]="None"
+            	    if product_dict["risk_name"] is None:
+                	product_dict["risk_name"]="None"
+            	    if product_dict["Frequency_of_Service"] is None:
+                	product_dict["Frequency_of_Service"]="None"
+            	    if product_dict["Risk_Factor_Information"] is None:
+                	product_dict["Risk_Factor_Information"]="None"
                     recommendations.append(product_dict)
                 #print product_dict
                     #print recommendations
@@ -143,37 +189,83 @@ def return_recommendations():
                                 "discussion":x[3],
                                 "rationale":x[4],
                                 "Title":x[5],
-                                "topic":x[6]
+                                "topic":x[6],
+				"general_id":str(x[7])
                             }
-                         
+                    if general_dict["clinical"] is None:
+                        general_dict["clinical"]="None"
+                    if general_dict["clinicalurl"] is None:
+                        general_dict["clinicalurl"]="None"
+                    if general_dict["Other"] is None:
+                        general_dict["Other"]="None"
+                    if general_dict["discussion"] is None:
+                        general_dict["discussion"]="None"
+                    if general_dict["rationale"] is None:
+                        general_dict["rationale"]="None"
+                    if general_dict["Title"] is None:
+                        general_dict["Title"]="None"
+                    if general_dict["topic"] is None:
+                        general_dict['topic']="None"
                     ret_tools_data=functoin_retrieve_data_againsst_tools_id(ret_data[i][7], ret_data[i][8], ret_data[i][9])
                     print(ret_tools_data)
                     if ret_tools_data is not None:
                         print(ret_tools_data)
                         j=0
                         try:
+			    tools_list=[]
+			    ids=[]
+			    urls=[]
+			    titles=[]
                             for j in range(len(ret_tools_data)):
-                                tools_dict={
-                                "Title":ret_tools_data[j][0],
-                                "url":ret_tools_data[j][1]
+				ids.append(str(ret_tools_data[j][0]))
+                                urls.append(ret_tools_data[j][2])
+                                titles.append(ret_tools_data[j][1])
+                                j+=1
+                            tools_dict={
+                                "tool_ids":ids,
+                                "Titles":titles,
+                                "urls":urls           
 
                                 }
-                                j+=1
+
                         except:
-                            tools_dict={}
+                            tools_list=[]
+                            tools_dict={
+                                "tool_ids":ret_tools_data[0][1],
+                                "Titles":ret_tools_data[0][2],
+                                "urls":ret_tools_data[0][3]
+
+                            }
+                            #tools_list.append(tools_dict)
                             pass
                     product_dict = {
                         "Title": ret_data[i][0],
                         "Grade": ret_data[i][1],
                         "Recomendation": ret_data[i][2],
-                        "Frequency of Service": ret_data[i][3],
-                        "Risk Factor Information": ret_data[i][4],
+                        "Frequency_of_Service": ret_data[i][3],
+                        "Risk_Factor_Information": ret_data[i][4],
                         "Rationale": ret_data[i][5],
                         "General":general_dict,
-                        "tools":tools_dict
+                        "tools":tools_dict,
+			"id":ret_data[i][10],
+			"agerange0":ret_data[i][11],
+                        "agerange1":ret_data[i][12],
+                        "risk_name":ret_data[i][13],
+                        "gender":ret_data[i][14],
+			"grade_version":ret_data[i][15]
                         }
                     
                     i+=1
+		    if product_dict["Rationale"] is None:
+			product_dict["Rationale"]="None"
+		    if product_dict["Title"] is None:
+                	product_dict["Title"]="None"
+            	    if product_dict["risk_name"] is None:
+                	product_dict["risk_name"]="None"
+            	    if product_dict["Frequency_of_Service"] is None:
+                	product_dict["Frequency_of_Service"]="None"
+                    if product_dict["Risk_Factor_Information"] is None:
+                	product_dict["Risk_Factor_Information"]="None"
                     recommendations.append(product_dict)
                 response = Response(json.dumps(recommendations), status=200, mimetype='application/json')
                 return response
@@ -209,37 +301,84 @@ def return_recommendations():
                             "discussion":x[3],
                             "rationale":x[4],
                             "Title":x[5],
-                            "topic":x[6]
+                            "topic":x[6],
+			    "general_id":str(x[7])
                         }
+		if general_dict["clinical"] is None:
+                        general_dict["clinical"]="None"
+                if general_dict["clinicalurl"] is None:
+                        general_dict["clinicalurl"]="None"
+                if general_dict["Other"] is None:
+                        general_dict["Other"]="None"
+                if general_dict["discussion"] is None:
+                        general_dict["discussion"]="None"
+                if general_dict["rationale"] is None:
+                        general_dict["rationale"]="None"
+                if general_dict["Title"] is None:
+                        general_dict["Title"]="None"
+                if general_dict["topic"] is None:
+                        general_dict['topic']="None"
                 ret_tools_data=functoin_retrieve_data_againsst_tools_id(ret_data[i][7], ret_data[i][8], ret_data[i][9])
                 print(ret_tools_data)
                 if ret_tools_data is not None:
                     print(ret_tools_data)
                     j=0
                     try:
+			tools_list=[]
+                     	ids=[]
+                        urls=[]
+                        titles=[]
                         for j in range(len(ret_tools_data)):
-                            tools_dict={
-                            "Title":ret_tools_data[j][0],
-                            "url":ret_tools_data[j][1]
+                            ids.append(str(ret_tools_data[j][0]))
+                            urls.append(ret_tools_data[j][2])
+                            titles.append(ret_tools_data[j][1])
+                            j+=1
+                        tools_dict={
+                                "tool_ids":ids,
+                                "Titles":titles,
+                                "urls":urls           
+
+                                }
+
+                    except:
+                        tools_list=[]
+                        tools_dict={
+                                "tool_ids":ret_tools_data[0][0],
+                                "Titles":ret_tools_data[0][1],
+                                "urls":ret_tools_data[0][2]
 
                             }
-                            j+=1
-                    except:
-                        tools_dict={}
-                        pass 
+                        #tools_list.append(tools_dict)
+                        pass
 
                 product_dict = {
                         "Title": ret_data[i][0],
                         "Grade": ret_data[i][1],
                         "Recomendation": ret_data[i][2],
-                        "Frequency of Service": ret_data[i][3],
-                        "Risk Factor Information": ret_data[i][4],
+                        "Frequency_of_Service": ret_data[i][3],
+                        "Risk_Factor_Information": ret_data[i][4],
                         "Rationale": ret_data[i][5],
                         "General":general_dict,
-                        "tools":tools_dict
+                        "tools":tools_dict,
+			"id":ret_data[i][10],
+			"agerange0":ret_data[i][11],
+                        "agerange1":ret_data[i][12],
+                        "risk_name":ret_data[i][13],
+                        "gender":ret_data[i][14],
+			"grade_version":ret_data[i][15]
                         }
                         
                 i+=1    
+		if product_dict["Rationale"] is None:
+			product_dict["Rationale"]="None"
+		if product_dict["Title"] is None:
+                	product_dict["Title"]="None"
+                if product_dict["risk_name"] is None:
+                	product_dict["risk_name"]="None"
+                if product_dict["Frequency_of_Service"] is None:
+                	product_dict["Frequency_of_Service"]="None"
+                if product_dict["Risk_Factor_Information"] is None:
+                	product_dict["Risk_Factor_Information"]="None"
                 recommendations.append(product_dict)
             response = Response(json.dumps(recommendations), status=200, mimetype='application/json')
             return response
@@ -265,13 +404,12 @@ def return_recommendations():
                     general_dict={
                         "clinical":x[0],
                         "clinicalurl":x[1],
+                        "Other":x[2],
+                        "discussion":x[3],
                         "rationale":x[4],
                         "Title":x[5],
-                        "topic":x[6]
-                    }
-                    other={
-                        "discussion":x[3],
-                        "Other":x[2]
+                        "topic":x[6],
+			"general_id":str(x[7])
                     }
             #if ret_data[i][7] is not None:
                 #print(ret_data[i][7])
@@ -279,35 +417,81 @@ def return_recommendations():
                 #print(ret_data[i][8])
             #if ret_data[i][9] is not None:
                # print(ret_data[i][9])
+	    if general_dict["clinical"] is None:
+                        general_dict["clinical"]="None"
+            if general_dict["clinicalurl"] is None:
+                        general_dict["clinicalurl"]="None"
+            if general_dict["Other"] is None:
+                        general_dict["Other"]="None"
+            if general_dict["discussion"] is None:
+                        general_dict["discussion"]="None"
+            if general_dict["rationale"] is None:
+                        general_dict["rationale"]="None"
+            if general_dict["Title"] is None:
+                        general_dict["Title"]="None"
+            if general_dict["topic"] is None:
+                        general_dict['topic']="None"
             ret_tools_data=functoin_retrieve_data_againsst_tools_id(ret_data[i][7], ret_data[i][8], ret_data[i][9])
             print(ret_tools_data)
             if ret_tools_data is not None:
                 print(ret_tools_data)
                 j=0
                 try:
+		    tools_list=[]
+                    ids=[]
+                    urls=[]
+                    titles=[]
                     for j in range(len(ret_tools_data)):
-                        tools_dict={
-                        "Title":ret_tools_data[j][0],
-                        "url":ret_tools_data[j][1]
-
-                        }
+                        ids.append(str(ret_tools_data[j][0]))
+                        urls.append(ret_tools_data[j][2])
+                        titles.append(ret_tools_data[j][1])
                         j+=1
+                    tools_dict={
+                          "tool_ids":ids,
+                          "Titles":titles,
+                          "urls":urls           
+
+                                }
+
                 except:
-                    tools_dict={}
+                    tools_list=[]
+                    tools_dict={
+                         "tool_ids":str(ret_tools_data[0][0]),
+                         "Titles":ret_tools_data[0][1],
+                         "urls":ret_tools_data[0][2]
+
+                            }
+                    #tools_list.append(tools_dict)
                     pass
             product_dict = {
                     "Title": ret_data[i][0],
                     "Grade": ret_data[i][1],
                     "Recomendation": ret_data[i][2],
-                    "Frequency of Service": ret_data[i][3],
-                    "Risk Factor Information": ret_data[i][4],
+                    "Frequency_of_Service": ret_data[i][3],
+                    "Risk_Factor_Information": ret_data[i][4],
                     "Rationale": ret_data[i][5],
                     "General":general_dict,
-                    "Others":other,
-                    "tools":tools_dict
+                    "tools":tools_dict,
+		    "id":ret_data[i][10],
+		    "agerange0":ret_data[i][11],
+                    "agerange1":ret_data[i][12],
+                    "risk_name":ret_data[i][13],
+                    "gender":ret_data[i][14],
+		    "grade_version":ret_data[i][15]
                     }
                     
-            i+=1        
+            i+=1
+	    if product_dict["Rationale"] is None:
+		product_dict["Rationale"]="None"
+	    if product_dict["Title"] is None:
+		product_dict["Title"]="None"
+	    if product_dict["risk_name"] is None:
+		product_dict["risk_name"]="None"
+	    if product_dict["Frequency_of_Service"] is None:
+		product_dict["Frequency_of_Service"]="None"
+	    if product_dict["Risk_Factor_Information"] is None:
+		product_dict["Risk_Factor_Information"]="None"
+	    
             recommendations.append(product_dict)
         response = Response(json.dumps(recommendations), status=200, mimetype='application/json')
         return response
