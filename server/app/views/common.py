@@ -389,6 +389,11 @@ def return_recommendations():
             ret_data = 'Products Not Found !'
             response = Response(json.dumps(ret_data), status=404, mimetype='application/json')
             return response
+    if Age=="male":
+        if len(pregnantrisk)==0:
+            pregnantrisk="Pregnant"
+
+
     ret_data =get_AGSTP_recommendations(Age, Gender,mixgender, risknameT, risknameS,risknameA,risknameO,pregnantrisk)
     if ret_data is not None:
         print("******")
