@@ -84,6 +84,7 @@ def get_AgeGenderRecommendations(Gender, mixgender, risknameT, risknameS,risknam
     except Exception as e:
         pg_.put_conn(pg_conn)
         return None
+
 def functoin_retrieve_data_againsst_general_id(general_id):
     """
     Returns a product information to product route
@@ -103,6 +104,9 @@ def functoin_retrieve_data_againsst_general_id(general_id):
     except Exception as e:
         pg_.put_conn(pg_conn)
         return None
+
+
+
 def functoin_retrieve_data_againsst_tools_id(tool0, tool1, tool2):
     """
     Returns a product information to product route
@@ -110,6 +114,12 @@ def functoin_retrieve_data_againsst_tools_id(tool0, tool1, tool2):
     :param category_id: id of category
     :return:
     """
+    if tool0=="None":
+	tool0='0'
+    if tool1=="None":
+	tool1='0'
+    if tool2=="None":
+	tool2='0'
     pg_conn, pg_cursor = pg_.get_conn()
     query = QUERIES["GetToolsData"]
     params = (tool0, tool1, tool2 )
