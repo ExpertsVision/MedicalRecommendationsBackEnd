@@ -1,0 +1,105 @@
+.container1 {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 95%;
+}
+.container2 {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 95%;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+/* Clear floats */
+.container1::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.container2::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style time text */
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+}
+
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  border: 3px solid #f1f1f1;
+  z-index: 99999;
+  height: 100%;
+  background: #fff;
+}
+
+.popup-bg {
+    position: fixed;
+    display: block;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+
+.popup-bg a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.popup-panel {
+    width: 600px;
+    background-color: #fff;
+    cursor: auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin: 30px 50%;
+    left: -300px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    position: absolute;
+    height: 90%;
+}
+
+.popup-content {  
+    overflow: auto;
+    width: 100%;
+    height: 90%;
+}
+
+.popup-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

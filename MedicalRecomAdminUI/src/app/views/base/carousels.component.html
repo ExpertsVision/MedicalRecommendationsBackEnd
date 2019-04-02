@@ -1,0 +1,158 @@
+<div class="animated fadeIn">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Add</strong> Drug
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Drug Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="drugname" name="Drugname" placeholder="Enter Drug Name"   [(ngModel)]="drugName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">TCGPI Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="tcgpiname" name="TCGPI" placeholder="Enter TCGPI Name"  [(ngModel)]="tcgpiName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">DDID</label>
+              <div class="col-md-9">
+                <input type="number" class="form-control" id="ddidname" name="DDID" placeholder="Enter DDID"
+                [(ngModel)]="ddid">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Concept ID</label>
+              <div class="col-md-9">
+                <input type="number" class="form-control" id="conceptidname" name="conceptid" placeholder="Enter Concept ID"
+                [(ngModel)]="conceptId">
+              </div>
+            </div>
+          <div>
+          <!-- button type="submit" class="btn btn-sm btn-primary" (click)=addDrug()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetValueofAdd()><i class="fa fa-ban"></i> Reset</button> -->
+        </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label"  for="file-input">Upload XML</label>
+              <div class="col-md-9">
+                <input type="file"  id="xmlfile-input" name="file-input" accept="text/xml"
+                (change)="getFileDetails($event)">
+              </div>
+            </div>
+            <div>
+          <!-- <button type="submit" class="btn btn-sm btn-primary" (click)=uploadFile()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetXmlInputField()><i class="fa fa-ban"></i> Reset</button> -->
+        </div>
+        <br>OR
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="file-input">Upload PDF</label>
+              <div class="col-md-9">
+                <input type="file" id="pdffile-input" name="file-input" accept="application/pdf"
+                (change)="getPdfFileDetails($event)">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=addDrug()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetPdfInputField()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Search</strong> Drug
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Drug Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="searchdrugname" name="seardrug" [(ngModel)]="searchDrugname" placeholder="Enter your name"
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=searchDrug()><i class="fa fa-dot-circle-o"></i> Search</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetDrugval()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Drugs
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Drug Name</th>
+                <th>DDID</th>
+                <th>Concept ID</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor ="let drugs of all_drugs_list[0] | paginate: { itemsPerPage: 10, currentPage: p };let i=index">
+                <td>
+                 <textarea rows= "1" class="editinput" type="text" [(ngModel)]="drugs['drugname']" 
+                  [disabled]="!drugs.isEditable" ></textarea>
+                </td>
+                <td>
+                   <input class="editinput" type="number" [(ngModel)]="drugs['DDID']" 
+                  [disabled]="!drugs.isEditable" >
+                </td>
+                <td>
+                   <input class="editinput" type="number" [(ngModel)]="drugs['ConceptId']" 
+                  [disabled]="!drugs.isEditable" >
+                </td>
+                <td>
+                  <div class="col-md text-center">
+                    <button type="button" class="btn btn-sm btn-ghost-success"
+                    (click)="drugs.isEditable=!drugs.isEditable" *ngIf="!drugs.isEditable">Edit</button>
+                    <button class="btn btn-sm btn-success" *ngIf="drugs.isEditable" (click)="drugs.isEditable=editSave(drugs['drugname'],drugs['DDID'],drugs['ConceptId'])">Save</button>
+                    <button type="button" class="btn btn-sm btn-ghost-danger"
+                    (click)="deleteDrug(drugs['DDID'])">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="card-body">
+        <strong>Search Results</strong>
+          <table  class="table table-striped" *ngIf="flag">
+            <tbody>
+              <tr>
+                <td>{{searchDrugResult['drugname']}}</td>
+                <td>{{searchDrugResult['DDID']}}</td>
+                <td>{{searchDrugResult['ConceptId']}}</td>
+                <td>
+                  <div class="col-md text-center">
+                    <!-- <button type="button" class="btn btn-sm btn-ghost-success"
+                    (click)="drugs.isEditable=!drugs.isEditable" *ngIf="!drugs.isEditable">Edit</button>
+                    <button class="btn btn-sm btn-success" *ngIf="drugs.isEditable" (click)="drugs.isEditable=editSave(drugs['drugname'],drugs['DDID'],drugs['ConceptId'])">Save</button> -->
+                    <button type="button" class="btn btn-sm btn-ghost-danger"
+                    (click)="deleteDrug(searchDrugResult['DDID'])">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

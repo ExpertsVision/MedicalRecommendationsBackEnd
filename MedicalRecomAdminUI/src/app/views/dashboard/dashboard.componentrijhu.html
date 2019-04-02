@@ -1,0 +1,143 @@
+<div class="animated fadeIn">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Add</strong> Response
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Select Category</label>
+              <div class="col-md-9">
+                <select id="select1" name="select1"  class="form-control" 
+                  [(ngModel)]="selectedCategory">
+                  <option *ngFor="let cat of remove_dupli_cat ">{{cat}}</option>
+                  <!-- <option value="0">Please Select Category</option>
+                  <option value="1">Category #1</option>
+                  <option value="2">Category #2</option>
+                  <option value="3">Category #3</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Response:</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Part 1</label>
+              <div class="col-md-9">
+                <input type="text" id="text-response1" name="response" class="form-control" placeholder="Response" [(ngModel)]="response1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Part 2</label>
+              <div class="col-md-9">
+                <input type="text" id="text-response2" name="response" class="form-control" placeholder="Response" [(ngModel)]="response2">
+              </div>
+            </div>
+
+          </form>
+        
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" 
+          (click)=addresponse()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetresponseval()><i class="fa fa-ban"></i> Reset</button>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Responses
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Gender</th>
+                <th>Grade</th>
+                <th>Grade Version</th>
+                <th>Risk Factor Information</th>
+                <th>Age Range0</th>
+                <th>Age Range1</th>
+                <th>Frequency of Service</th>
+                <th>Recommendation</th>
+                <th>Source</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor ="let users of all_responses_list[0] | paginate: { itemsPerPage: 10, currentPage: p }; index as i">
+
+                <td>{{users['ID']}}
+                </td>
+                <td>
+                  <textarea rows="2" cols=500 class= "editinput" type="text" [(ngModel)]="users['Title']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                 <td>
+                  <textarea rows="2" cols=50 class= "editinput" type="text" [(ngModel)]="users['Gender']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td> 
+                 <td>
+                  <textarea rows="2" cols=2 class= "editinput" type="text" [(ngModel)]="users['Grade']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td> 
+                 <td>
+                  <textarea rows="2" cols=1 class= "editinput" type="text" [(ngModel)]="users['GradeVersion']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td>
+                  <textarea rows="3" cols=500 class= "editinput" type="text" [(ngModel)]="users['Risk Factor Information']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td>
+                  <textarea rows="2" cols=2 class= "editinput" type="text" [(ngModel)]="users['AgeRange0']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td> 
+                
+                <td>
+                  <textarea rows="2" cols=2 class= "editinput" type="text" [(ngModel)]="users['AgeRange1']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td>
+                  <textarea rows="3" cols=500 class= "editinput" type="text" [(ngModel)]=
+                  "users['Frequency of Service']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td>
+                  <textarea rows="3" cols=500 class= "editinput" type="text" [(ngModel)]=
+                  "users['Recomendation']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td>
+                  <textarea rows="3" cols=500 class= "editinput" type="text" [(ngModel)]=
+                  "users['Source']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+               
+                <td>
+                  <div class="col-md text-center">
+                    <button type="button" class="btn btn-sm btn-ghost-success" 
+                    (click)="users.isEditable=!users.isEditable=oldvalues(users['ID'],users['Title'],users['Gender'],users['Grade'],users['GradeVersion'],users['AgeRange0'],users['AgeRange1'],users['Frequency of Service'],users['Risk Factor Information'])" *ngIf="!users.isEditable">Edit</button>
+                    <button class="btn btn-sm btn-success" *ngIf="users.isEditable" (click)="users.isEditable=editSave(users['ID'],users['Title'],users['Gender'],users['Grade'],users['GradeVersion'],users['AgeRange0'],users['AgeRange1'],users['Frequency of Service'],users['Risk Factor Information'])">Save</button>
+                <button type="button" class="btn btn-sm btn-ghost-danger"
+              (click)="deleteResponse(users['ID'])">
+              Delete
+            </button>
+                  </div>
+                </td>
+              </tr>
+           
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,313 @@
+<div class="animated fadeIn">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-sm-6 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Search</strong> User
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" id="susername" name="username" class="form-control"  [(ngModel)]="searchusername" placeholder="User Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" id="semail" name="email" class="form-control" [(ngModel)]="searchuseremail" placeholder="Email" autocomplete="email">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=searchuser()><i class="fa fa-dot-circle-o"></i> Search</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetvalueofsearch()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-2">
+      <div class="card text-white bg-primary">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item"  (click)=daily()>Daily</a>
+              <a class="dropdown-item" (click)=weekly()>Weekly</a>
+              <a class="dropdown-item" (click)=monthly()>Monthly</a>
+            </div>
+          </div>
+          <div class="text-value" id="dailusers">
+          {{daily_users}}</div>
+          <div id="dailuser">Daily Users</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:30px;">
+          <!-- <canvas baseChart class="chart"
+          [datasets]="lineChart1Data"
+          [labels]="lineChart1Labels"
+          [options]="lineChart1Options"
+          [colors]="lineChart1Colours"
+          [legend]="lineChart1Legend"
+          [chartType]="lineChart1Type"></canvas> -->
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-lg-2">
+      <div class="card text-white bg-warning">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" (click)=dailyAns()>Daily</a>
+              <a class="dropdown-item" (click)=weeklyAns()>Weekly</a>
+              <a class="dropdown-item" (click)=monthlyAns()>Monthly</a>
+            </div>
+          </div>
+          <div class="text-value" id="answers">
+          {{daily_success_ans}}</div>
+          <div id="ans-title">Daily Success Answers</div>
+        </div>
+        <div class="chart-wrapper mt-3" style="height:10px;">
+          <!-- <canvas baseChart class="chart"
+          [datasets]="lineChart3Data"
+          [labels]="lineChart3Labels"
+          [options]="lineChart3Options"
+          [colors]="lineChart3Colours"
+          [legend]="lineChart3Legend"
+          [chartType]="lineChart3Type"></canvas> -->
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6 col-lg-2">
+      <div class="card text-white bg-danger">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" (click)=dailyRating()>Daily</a>
+              <a class="dropdown-item" (click)=weeklyRating()>Weekly</a>
+              <a class="dropdown-item" (click)=monthlyRating()>Monthly</a>
+            </div>
+          </div>
+          <div class="text-value" id="rating">
+          {{daily_rating}}</div>
+          <div id="avgrating"> Daily Average Rating</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:30px;">
+          <!-- <canvas baseChart class="chart"
+          [datasets]="barChart1Data"
+          [labels]="barChart1Labels"
+          [options]="barChart1Options"
+          [colors]="barChart1Colours"
+          [legend]="barChart1Legend"
+          [chartType]="barChart1Type"></canvas> -->
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Conversation History
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="vertical-align: top;">Date</th>
+                <th style="vertical-align: top;">Time</th>
+                <th style="vertical-align: top;">User Name</th>
+                <th style="vertical-align: top;">Email</th>
+                <th style="vertical-align: top;">Drug Name</th>
+                <th>Answers<br>
+                  <div class="first-half text-center" style="float: left; width: 50%;">
+                    Yes
+                  </div>
+                  <div class="second-half text-center" style="float: right; width: 50%;">
+                    No
+                  </div></th>
+                  <th style="vertical-align: top;">Ratings</th>
+                  <th class="text-center" style="vertical-align: top;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor ="let users of all_conversation_list[0] | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                  <td>{{users['date']}}</td>
+                  <td>{{users['time']}}</td>
+                  <td>{{users['name']}}</td>
+                  <td>{{users['email']}}</td>
+                  <td>{{users['drugname']}}</td>
+                  <td>
+                    <div class="first-half text-center" style="float: left; width: 50%;">
+                      {{users['yes']}}
+                    </div>
+                    <div class="second-half text-center" style="float: right; width: 50%;">
+                      {{users['no']}}
+                    </div>
+                  </td>
+                  <td class="text-center">{{users['ratings']}}</td>
+                  <td>
+                    <div class="col-md text-center">
+                   <!--  <button type="button" class="btn btn-sm btn-ghost-success"
+                     data-toggle="modal" (click)="largeModal.show()">View Chat</button> -->
+                     <button type="button" class="btn btn-sm btn-ghost-success"
+                     data-toggle="modal" (click)="viewChat(users['name'],users['email'], 'myForm');">View Chat</button>
+                     <button type="button" class="btn btn-sm btn-ghost-success" 
+                     (click)="viewReviews(users['name'],users['email'],'myForm2');">View Reviews</button>
+                     <button type="button" class="btn btn-sm btn-ghost-danger"
+                     (click)="deleteConversation(users['name'],users['email'])">Delete</button>
+                   </div>
+                 </td>
+               </tr>
+             </tbody>
+           </table>
+         </div>
+         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+         <div class="card-body">
+          <strong>Search Results</strong>
+          <table  class="table table-striped" *ngIf="flag">
+            <tbody>
+              <tr>
+                <td>{{search_result2['date']}}</td>
+                <td>{{search_result2['time']}}</td>
+                <td>{{search_result2['name']}}</td>
+                 <td>{{search_result2['email']}}</td>
+                <td>{{search_result2['drugname']}}</td>
+                <td>{{search_result2['yes']}}</td>
+                <td>{{search_result2['no']}}</td>
+                <td>{{search_result2['ratings']}}</td>
+                <td>
+                    <div class="col-md text-center">
+                   <!--  <button type="button" class="btn btn-sm btn-ghost-success"
+                     data-toggle="modal" (click)="largeModal.show()">View Chat</button> -->
+                     <button type="button" class="btn btn-sm btn-ghost-success"
+                     data-toggle="modal" (click)="viewChat(search_result2['name'],search_result2['email'], 'myForm');">View Chat</button>
+                     <button type="button" class="btn btn-sm btn-ghost-success" 
+                     (click)="viewReviews(search_result2['name'],search_result2['email'],'myForm2');">View Reviews</button>
+                     <button type="button" class="btn btn-sm btn-ghost-danger"
+                     (click)="deleteConversation(search_result2['name'],search_result2['email'])">Delete</button>
+                   </div>
+                 </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <!DOCTYPE html>
+<html>
+<body>
+
+<div class="chat-popup" id="modal-1" class="default" *ngIf="showContent">
+  <h2>Chat Messages</h2>
+    <div class="col-md-6 col-md-offset-3 form-container" 
+    *ngFor="let chat of chat_list[0]">
+
+    <div class="container" ALIGN=LEFT>
+      <label>User</label>
+      <p>{{chat['user']}}</p>
+  <span class="time-right">{{chat['date_time']}}</span>
+    </div>
+
+    <div class="container darker" ALIGN=RIGHT>
+      <label>Proveo</label>
+      <p>{{chat['Proveo']}}</p>
+      <span class="time-left">{{chat['date_time']}}</span>
+    </div>
+  </div>
+  <div class="row">
+        <div class="col-sm-3.5 form-group">
+          <button type="submit" class="btn btn-lg btn-warning btn-block" style="background-color: mediumseagreen; border: none;" 
+          (click)="closeModal()">Close </button>
+        </div>
+      </div>
+</div>
+
+<div class="chat-popup" id="modal-2" class="default" *ngIf="showConten1">
+  <form action="/action_page.php" class="form-container">
+  <h2>Reviews</h2>
+    <div class="col-md-6 col-md-offset-3 form-container" 
+    *ngFor="let chat of review_list[0]">
+      <p>{{chat['reviews']}}</p>
+    </div>   
+  <div class="row">
+        <div class="col-sm-3.5 form-group">
+          <button type="submit" class="btn btn-lg btn-warning btn-block" style="background-color: mediumseagreen; border: none;" 
+          (click)="closeModal2()">Close </button>
+        </div>
+      </div></form>
+</div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<body>
+
+
+  <!-- <button class="open-button" (click)="openForm()">Chat</button> -->
+
+  <div class="chat-popup" id="myForm" style="overflow-y: scroll;" >
+    <div class="popup-bg"></div>
+    <div class="popup-panel">
+      <div class="popup-header" style="margin-bottom: 35px;">
+    <button type="button" class="btn cancel" (click)="closeForm('myForm')" style="font-weight: bold; float: right; margin-right: 3px; font-size: 16px;">x</button></div>
+     <div class="popup-content">
+      <div *ngFor="let chat of chat_list[0]; let id=index">
+
+      <div class="container1" ALIGN=LEFT id="chatuser" >
+        <label>User</label>
+        <p id= "userchat" [innerHTML]="highlight(chat['user'])"></p>
+        <span class="time-right">{{chat['date_time']}}</span>
+      </div>
+
+      <div class="container2 darker" ALIGN=RIGHT>
+        <label>Proveo</label>
+        <p id="proveochat">{{chat['Proveo']}}</p>
+        <span class="time-left">{{chat['date_time']}}</span>
+      </div>
+    
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+
+  <!-- <button class="open-button" (click)="openForm()">Chat</button> -->
+
+  <div class="chat-popup" id="myForm2" style="overflow-y: scroll;" >
+    <div class="popup-bg"></div>
+    <div class="popup-panel">
+      <div class="popup-header" style="margin-bottom: 15px;">
+    <button type="button" class="btn cancel" (click)="closeModal2('myForm2')" style="font-weight: bold; float: right; margin-right: 3px; font-size: 16px;">x</button></div>
+      <div *ngFor="let chat of review_list[0]">
+      <p style="padding: 12px;">{{chat['reviews']}}</p>
+    </div>
+</div>
+</div>
+</body>
+</html>
+

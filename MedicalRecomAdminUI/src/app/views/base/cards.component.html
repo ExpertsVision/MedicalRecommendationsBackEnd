@@ -1,0 +1,129 @@
+<div class="animated fadeIn">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Add</strong> User
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" id="username" name="username" class="form-control" [(ngModel)]="username" placeholder="User Name" >
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="useremailid" placeholder="Email" autocomplete="email">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)= adduser()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)= resetvalueofadd()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Search</strong> User
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" id="susername" name="username" class="form-control"  [(ngModel)]="searchusername" placeholder="User Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" id="semail" name="email" class="form-control" [(ngModel)]="searchuseremail" placeholder="Email" autocomplete="email">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=searchuser()><i class="fa fa-dot-circle-o"></i> Search</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetvalueofsearch()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Users
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>User Name</th>
+                <th>Email Address</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor ="let users of all_users_list[0] | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                <td>{{i}}</td>
+                <td id="usernam">
+                  <textarea rows="2" class="editinput" type="text" [(ngModel)]="users['user_name']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <td id="userid">
+                  <textarea rows="2" class="editinput" type="text" [(ngModel)]="users['email_id']" 
+                  [disabled]="!users.isEditable" ></textarea>
+                </td>
+                <!-- <td id="userid" >{{users['email_id']}}</td> -->
+                <td>
+                  <div class="col-md text-center">
+                    <button type="button" class="btn btn-sm btn-ghost-success"
+                    (click)="users.isEditable=!users.isEditable" *ngIf="!users.isEditable">Edit</button>
+                    <button class="btn btn-sm btn-success" *ngIf="users.isEditable" (click)="users.isEditable=editsave(users['user_name'],users['email_id'])">Save</button>
+                    <button type="button" class="btn btn-sm btn-ghost-danger" 
+                    (click)="deleteuser(users['user_name'],users['email_id'])">Delete</button>
+                  </div>
+                </td>
+            </tr>
+              
+            </tbody>
+          </table></div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="card-body">
+        <strong>Search Results</strong>
+          <table  class="table table-striped" *ngIf="flag">
+            <tbody>
+              <tr>
+                <td>{{search_result2['email_id']}}</td>
+                <td>{{search_result2['user_name']}}</td>
+                <td>
+                <div class="col-md text-center">
+                  <button type="button" class="btn btn-sm btn-ghost-success">Edit</button>
+          <button type="button" class="btn btn-sm btn-ghost-danger"
+            (click)="deleteuser(search_result2['user_name'],search_result2['email_id'])">Delete</button>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+ <div class="animated fadeIn">
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Add</strong> Hashtag
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Hashtag</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="name" [(ngModel)]="addhashtag" placeholder="Enter Hashtag" name="addhashtag">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Response</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="name1" [(ngModel)]="addresponse" placeholder="Enter Response" name="addresponse">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=addhashtags()><i class="fa fa-dot-circle-o"></i> Add</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resethashtags()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Search</strong> Hashtag
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Hashtag</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="name2" [(ngModel)]="search_hashtag" placeholder="Enter Hashtag" name="searchtag">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)=searchtag()><i class="fa fa-dot-circle-o"></i> Search</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)=resetsearchtag()><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Hashtags
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Hashtag</th>
+                <th>Response</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor ="let tags of all_tags_list[0] | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                <td id="tag" >{{tags["hashtag"]}}</td>
+                <td id="res" >
+                  <textarea rows="2" class="editinput" type="text" [(ngModel)]="tags['response']" 
+                  [disabled]="!tags.isEditable" ></textarea>
+                </td>
+                <td>
+                  <div class="col-md text-center">
+                    <button type="button" class="btn btn-sm btn-ghost-success" 
+                    (click)="tags.isEditable=!tags.isEditable" *ngIf="!tags.isEditable">Edit</button>
+                    <button class="btn btn-sm btn-success" *ngIf="tags.isEditable" (click)="tags.isEditable=editsave(tags['response'],tags['hashtag'])">Save</button>
+                    <button type="button" class="btn btn-sm btn-ghost-danger" 
+                    (click)="deletetag(tags['hashtag'])">Delete</button>
+                  </div>
+                </td>
+            </tr>
+            </tbody> 
+          </table>
+        </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        <div class="card-body">
+        <strong>Search Results</strong>
+          <table  class="table table-striped" *ngIf="flag">
+            <tbody>
+              <tr>
+                <td>{{search_hashtag}}</td>
+                <td>{{res2}}</td>
+                <td>
+                <div class="col-md text-center">
+                  <button type="button" class="btn btn-sm btn-ghost-success">Edit</button>
+                  <button type="button" class="btn btn-sm btn-ghost-danger">Delete</button>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+
+       
+        
+      </div>
+    </div>
+  </div>
+</div>

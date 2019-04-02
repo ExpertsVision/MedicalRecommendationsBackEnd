@@ -1,0 +1,16 @@
+.editinput {
+	background: transparent;
+	border: none;
+	padding: 2px 5px 2px 5px;
+	width: 100%;
+}
+.card-body{
+	overflow-x:auto;
+}
+
+textarea[type="text"][disabled] {
+   color: grey;
+   width: 100%;
+   word-wrap: break-word;
+   resize: none;
+}
